@@ -22,9 +22,7 @@ public class MainActivity extends Activity implements ACPResponser{
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.textView);
 
-        Pmhelper.init(this);
-        PkgState state =  Pmhelper.getAppUseSpace("com.miui.fm");
-        Log.d(TAG, "onCreate: fm used space: " + (state.codeSize + state.cacheSize + state.dataSize));
+        PmHelperKt.initPm(this);
         ACPServer server=  new ACPServer();
         server.setResponser(this);
         server.start();

@@ -2,10 +2,9 @@ package top.atmb.autumnbox.acp.processor;
 
 import android.content.pm.PackageManager;
 
-import java.util.jar.JarEntry;
-
 import top.atmb.autumnbox.acp.ACP;
-import top.atmb.autumnbox.pmhelper.Pmhelper;
+import top.atmb.autumnbox.pmhelper.*;
+
 /**
  * Created by zsh24 on 01/21/2018.
  */
@@ -18,7 +17,7 @@ public class AutoProcessor{
             switch (command.baseCommand().toLowerCase()){
                 case ACP.CMD_GETPKGINFO:
                     try{
-                        String json =  Pmhelper.getAppInfo(command.args()[0]).toString();
+                        String json =  PmHelperKt.getAppInfo(command.args()[0]).toString();
                         builder.setfCode(ACP.FCODE_SUCCESS);
                         builder.setData(json.getBytes());
                     }catch (PackageManager.NameNotFoundException ex){
@@ -32,7 +31,7 @@ public class AutoProcessor{
                     break;
                 case ACP.CMD_GETICON:
                     try{
-                        byte[] data = Pmhelper.getAppIcon(command.args()[0]);
+                        byte[] data = PmHelperKt.getAppIcon(command.args()[0]);
                         builder.setData(data);
                         builder.setfCode(ACP.FCODE_SUCCESS);
                     }catch (PackageManager.NameNotFoundException ex){
