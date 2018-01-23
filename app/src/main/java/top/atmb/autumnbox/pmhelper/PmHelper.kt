@@ -31,24 +31,17 @@ fun userId(): Int {
 }
 @Throws(PackageManager.NameNotFoundException::class)
 fun getAppInfo(packageName: String):JSONObject?{
-    try {
-        val pi = Pm!!.getPackageInfo(packageName, 0)
-        val jsonObject = JSONObject()
-        jsonObject.put("packageName", pi.packageName)
-        jsonObject.put("name", pi.applicationInfo.loadLabel(Pm).toString())
-        val (codeSize, cacheSize, dataSize) = getAppUseSpace(packageName)
-
-        jsonObject.put("cacheSize", cacheSize)
-        jsonObject.put("codeSize", codeSize)
-        jsonObject.put("dataSize", dataSize)
-        return jsonObject
-    } catch (ex: Exception) {
-        ex.printStackTrace()
-        Log.d(TAG, "getAppname: failed")
-        return null
-    }
-    return null;
+    val pi = Pm!!.getPackageInfo(packageName, 0)
+    val jsonObject = JSONObject()
+    jsonObject.put("packageName", pi.packageName)
+    jsonObject.put("name", pi.applicationInfo.loadLabel(Pm).toString())
+    val (codeSize, cacheSize, dataSize) = getAppUseSpace(packageName)
+    jsonObject.put("cacheSize", cacheSize)
+    jsonObject.put("codeSize", codeSize)
+    jsonObject.put("dataSize", dataSize)
+    return jsonObject
 }
+
 @Throws(PackageManager.NameNotFoundException::class)
 fun getAppIcon(packageName: String): ByteArray {
     val pi = Pm!!.getPackageInfo(packageName, 0)

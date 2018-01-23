@@ -6,13 +6,4 @@
     android:layout_height="match_parent"
     tools:context="top.atmb.autumnbox.MainActivity">
 
-    <TextView android:id="@+id/textView"
-        android:layout_width="221dp"
-        android:layout_height="94dp"
-        android:text="等待连接"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="181dp" />
-
 </android.support.constraint.ConstraintLayout>
