@@ -6,8 +6,8 @@ package top.atmb.autumnbox.acpcommand
 data class Command(var baseCommand:String,var args:Array<String> = arrayOf())
 
 @Throws(CommandParseFailedException::class)
-fun string2Command(cmdStr:String):Command{
-    var strs:Array<String> = cmdStr.split(" ").toTypedArray();
+fun String.toCommand():Command{
+    var strs:Array<String> = this.split(" ").toTypedArray();
     if(strs.isEmpty()){
         throw CommandParseFailedException()
     }
@@ -16,10 +16,5 @@ fun string2Command(cmdStr:String):Command{
         args = strs.copyOfRange(1,strs.size)
     }
     return Command(strs[0],args)
-}
-
-@Throws(CommandParseFailedException::class)
-fun String.toCommand():Command{
-    return string2Command(this)
 }
 
