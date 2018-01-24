@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group >
+        <item
+            android:id="@+id/nav_officialWebsite"
+            android:title="AutumnBox官网"
+            ></item>
+        <item
+            android:id="@+id/nav_opensource"
+            android:title="开源"></item>
+        <item
+            android:id="@+id/nav_donate"
+            android:title="捐赠"></item>
+        <item
+            android:id="@+id/nav_about"
+            android:title="关于"></item>
+
+        <item
+            android:id="@+id/nav_exit"
+            android:title="退出"></item>
+    </group>
+</menu>

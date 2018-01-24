@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="top.atmb.autumnbox.MainActivity">
+    android:id="@+id/drawer_layout"
+    tools:context="top.atmb.autumnbox.activities.MainActivity"
+    android:background="#FEFEFE">
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <top.atmb.autumnbox.ctrl.TitleBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </top.atmb.autumnbox.ctrl.TitleBarLayout>
+
+        <android.support.percent.PercentFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_main"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/title_icon"
+                app:layout_heightPercent="50%"
+                app:layout_widthPercent="70%" />
+        </android.support.percent.PercentFrameLayout>
+        <TextView
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="感谢您选择AutumnBox" />
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="基于ACP 0.8的请求处理服务"
+            />
+        <TextView
+            android:id="@+id/text_serverstate"
+            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="加载中"
+            />
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:menu="@menu/nav_menu"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        ></android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

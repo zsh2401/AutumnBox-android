@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_height="50dp">
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/menu_icon"
+        app:layout_widthPercent="6%"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_menu" />
+</android.support.percent.PercentFrameLayout>
