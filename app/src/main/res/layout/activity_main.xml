@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context="top.atmb.autumnbox.activities.MainActivity"
-    android:background="#FEFEFE">
-
+    android:background="@color/colorMainBg">
 
 
     <LinearLayout
@@ -39,7 +38,7 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="感谢您选择AutumnBox" />
+            android:text="@string/main_thanks" />
 
         <TextView
             android:layout_marginTop="25dp"
@@ -47,7 +46,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="基于ACP 0.8的请求处理服务"
+            android:text="@string/main_desc"
             />
         <TextView
             android:id="@+id/text_serverstate"
@@ -56,7 +55,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="加载中"
+            android:text="@string/state_server_loading"
             />
     </LinearLayout>
 

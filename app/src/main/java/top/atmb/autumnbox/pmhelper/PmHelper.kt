@@ -9,18 +9,19 @@ import android.os.Build
 import android.os.UserHandle
 import android.util.Log
 import org.json.JSONObject
+import top.atmb.autumnbox.App
 import java.io.ByteArrayOutputStream
 import java.lang.reflect.Method
 
 /**
  * Created by zsh24 on 01/22/2018.
  */
-private var Pm:PackageManager? = null;
+private var Pm:PackageManager
+get() = App.context.packageManager
+set(value) {}
+
 private var TAG:String = "pmHelper";
 
-fun initPm(context: Context) {
-    Pm = context.packageManager
-}
 fun userId(): Int {
     try {
         val myUserId = UserHandle::class.java.getDeclaredMethod("myUserId")//ignore check this when u set ur min SDK < 17
@@ -44,7 +45,8 @@ fun getAppInfo(packageName: String):JSONObject?{
 
 @Throws(PackageManager.NameNotFoundException::class)
 fun getAppIcon(packageName: String): ByteArray {
-    val pi = Pm!!.getPackageInfo(packageName, 0)
+
+    val pi = Pm.getPackageInfo(packageName, 0)
     val icon = pi.applicationInfo.loadIcon(Pm)
     val bmp = (icon as BitmapDrawable).bitmap
     val stream = ByteArrayOutputStream()

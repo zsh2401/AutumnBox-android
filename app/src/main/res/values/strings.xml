@@ -8,6 +8,21 @@
 
     <string name="action_settings">Settings</string>
     <string name="main_thanks">感谢您选择AutumnBox</string>
-    <string name="title_activity_navitation_test">NavitationTest</string>
-    <string name="title_activity_main2">MainActivity2</string>
+    <string name="main_desc">基于ACP 0.8的请求处理服务</string>
+    <string name="state_server_loading">加载中</string>
+    <string name="state_server_running">运行中</string>
+    <string name="state_server_ex">未运行</string>
+    <string name="nav_donate">捐赠</string>
+    <string name="nav_about">关于</string>
+    <string name="nav_official">AutumnBox官网</string>
+    <string name="nav_os">开源</string>
+    <string name="nav_exit">彻底退出</string>
+    <string name="title_about">关于AutumnBox-Mobile</string>
+    <string name="msg_about">为拓展AutumnBox而生</string>
+    <string name="btn_ok">OK</string>
+    <string name="title_donate">捐赠开发者</string>
+    <string name="msg_donate">共同营造更加良好的安卓应用生态</string>
+    <string name="btn_donate_cpwechat">复制微信账号</string>
+    <string name="btn_donate_cpalipay_code">复制支付宝红包口令</string>
+    <string name="btn_donate_goto_alipaytransfer">支付宝转账</string>
 </resources>

@@ -4,20 +4,20 @@
     <group >
         <item
             android:id="@+id/nav_officialWebsite"
-            android:title="AutumnBox官网"
+            android:title="@string/nav_official"
             ></item>
         <item
             android:id="@+id/nav_opensource"
-            android:title="开源"></item>
+            android:title="@string/nav_os"></item>
         <item
             android:id="@+id/nav_donate"
-            android:title="捐赠"></item>
+            android:title="@string/nav_donate"></item>
         <item
             android:id="@+id/nav_about"
-            android:title="关于"></item>
+            android:title="@string/nav_about"></item>
 
         <item
             android:id="@+id/nav_exit"
-            android:title="退出"></item>
+            android:title="@string/nav_exit"></item>
     </group>
 </menu>
