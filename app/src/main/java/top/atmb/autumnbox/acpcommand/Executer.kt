@@ -3,9 +3,7 @@ package top.atmb.autumnbox.acpcommand
 import android.util.Log
 import top.atmb.autumnbox.acp.ACP
 import top.atmb.autumnbox.acp.ACPDataBuilder
-import top.atmb.autumnbox.module.IModule
-import top.atmb.autumnbox.module.IconGetter
-import top.atmb.autumnbox.module.PkgInfoGetter
+import top.atmb.autumnbox.module.*
 
 /**
  * Created by zsh24 on 01/22/2018.
@@ -16,8 +14,8 @@ fun execute(command:String):ACPDataBuilder{
     var result = ACPDataBuilder()
     try{
         val cmd = command.toCommand()
-        val module = findModule(cmd.baseCommand)
-        var exeResult = module.run(cmd.args)
+        val module = find(cmd.baseCommand)
+        var exeResult = module(cmd.args)
         if(exeResult != null){
             result = exeResult
         }
@@ -38,10 +36,10 @@ fun execute(command:String):ACPDataBuilder{
 }
 
 @Throws(CommandNotFoundException::class)
-fun findModule(baseCommand: String): IModule {
+fun find(baseCommand:String):(Array<String>)->ACPDataBuilder{
     return when(baseCommand){
-        ACP.CMD_GETICON -> IconGetter()
-        ACP.CMD_GETPKGINFO -> PkgInfoGetter()
+        ACP.CMD_GETICON-> {args-> getIcon(args)}
+        ACP.CMD_GETPKGINFO->{args-> getPkgInfo(args)}
         else -> throw CommandNotFoundException()
     }
 }

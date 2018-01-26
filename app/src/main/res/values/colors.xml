@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorServerRunning">#00EECC</color>
-    <color name="colorServerStopped">#EE2500</color>
+    <color name="colorServerRunning">#FF00EECC</color>
+    <color name="colorServerStopped">#FFEE2500</color>
     <color name="colorTitleBar">#222222</color>
     <color name="colorMainBg">#FEFEFE</color>
     <color name="colorStatusBar">#0F0F0F</color>

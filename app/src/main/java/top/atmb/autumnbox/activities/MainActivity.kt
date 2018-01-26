@@ -1,6 +1,9 @@
 package top.atmb.autumnbox.activities
 
+import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.app.AlertDialog
+import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -10,29 +13,12 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import top.atmb.autumnbox.ACPService
 import top.atmb.autumnbox.R
-import java.nio.file.Files.size
-import android.app.ActivityManager
-import android.content.*
-import android.support.design.widget.BottomSheetDialog
-
-
-fun isServiceRunning(context: Context, ServiceName: String?): Boolean {
-    if ("" == ServiceName || ServiceName == null)
-        return false
-    val myManager = context
-            .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-    val runningService = myManager
-            .getRunningServices(30) as ArrayList<ActivityManager.RunningServiceInfo>
-    for (i in 0 until runningService.size) {
-        if (runningService[i].service.getClassName().toString()
-                .equals(ServiceName)) {
-            return true
-        }
-    }
-    return false
-}
+import top.atmb.autumnbox.util.getVersionName
+import top.atmb.autumnbox.util.gotoAlipay
+import top.atmb.autumnbox.util.openAlipay
 
 class MainActivity : AppCompatActivity(),IOpenableDrawer {
     override fun openDrawer() {
@@ -42,8 +28,8 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
     companion object {
         val TAG:String = "MainActivity"
     }
-    lateinit var mServerStateText:TextView
-    lateinit var mDrawerLayout:DrawerLayout
+    private lateinit var mServerStateText:TextView
+    private lateinit var mDrawerLayout:DrawerLayout
     private lateinit var receiver:ACPServiceBroadcastReceiver
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +41,18 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
             resources.getString(R.string.state_server_running)
             else resources.getString(R.string.state_server_loading)
 
+        mServerStateText.setTextColor(resources.getColor(R.color.colorServerRunning))
         receiver = ACPServiceBroadcastReceiver(this)
         receiver.serverStarted = {
             runOnUiThread({
+                Log.d(TAG,"server started")
+                mServerStateText.setTextColor(resources.getColor(R.color.colorServerRunning))
                 mServerStateText.text = resources.getString(R.string.state_server_running)
             })
         }
         receiver.serverStopped = {
             runOnUiThread({
+                mServerStateText.setTextColor(resources.getColor(R.color.colorServerStopped))
                 mServerStateText.text = resources.getString(R.string.state_server_ex)
             })
         }
@@ -87,12 +77,24 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
                     intent.data = Uri.parse("http://atmb.top")
                     startActivity(intent)
                 }R.id.nav_opensource->{
-                var intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://github.com/zsh2401/AutumnBox-android/")
-                startActivity(intent)
+                    var dialogBuilder = AlertDialog.Builder(this)
+                dialogBuilder.setTitle(resources.getString(R.string.title_pls_select_repo))
+                dialogBuilder.setNegativeButton(R.string.autumnbox_android,{dialog,which->
+                    var intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://github.com/zsh2401/AutumnBox-android/")
+                    startActivity(intent)
+                    dialog.dismiss()
+                })
+                dialogBuilder.setPositiveButton(R.string.autumnbox_pc,{dialog,which->
+                    var intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://github.com/zsh2401/AutumnBox/")
+                    startActivity(intent)
+                    dialog.dismiss()
+                })
+               dialogBuilder.show()
             }R.id.nav_about->{
                 var dialog =  AlertDialog.Builder(this)
-                dialog.setTitle(R.string.title_about)
+                dialog.setTitle(resources.getString(R.string.title_about) + " " + getVersionName() )
                 dialog.setMessage(R.string.msg_about)
                 dialog.setPositiveButton(R.string.btn_ok,{dialog,wich->
                     dialog.dismiss()
@@ -105,17 +107,22 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
                 dialog.setNeutralButton(R.string.btn_donate_cpwechat,{dialog,which->
                     var cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     cm.text = "Ryme2401"
+                    Toast.makeText(
+                            this,resources.getString(R.string.toast_already_copy),
+                            Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 })
                 dialog.setPositiveButton(R.string.btn_donate_goto_alipaytransfer,{dialog,which->
-                    var intent =Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse("https://QR.ALIPAY.COM/FKX06104YFIEAHNXXKP7E2")
-                    startActivity(intent)
+                    gotoAlipay()
                     dialog.dismiss()
                 })
                 dialog.setNegativeButton(R.string.btn_donate_cpalipay_code,{dialog,which->
                     var cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     cm.text = "wTGShq38cq"
+                    openAlipay()
+                    Toast.makeText(
+                            this,resources.getString(R.string.toast_already_copy),
+                            Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 })
                 dialog.show()

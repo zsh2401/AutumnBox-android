@@ -5,19 +5,24 @@
         <item
             android:id="@+id/nav_officialWebsite"
             android:title="@string/nav_official"
+            android:icon="@mipmap/ic_website"
             ></item>
         <item
             android:id="@+id/nav_opensource"
-            android:title="@string/nav_os"></item>
+            android:title="@string/nav_os"
+            android:icon="@mipmap/ic_github"></item>
         <item
             android:id="@+id/nav_donate"
-            android:title="@string/nav_donate"></item>
+            android:title="@string/nav_donate"
+            android:icon="@mipmap/ic_donate"></item>
         <item
             android:id="@+id/nav_about"
-            android:title="@string/nav_about"></item>
+            android:title="@string/nav_about"
+            android:icon="@mipmap/ic_about"></item>
 
         <item
             android:id="@+id/nav_exit"
-            android:title="@string/nav_exit"></item>
+            android:title="@string/nav_exit"
+            android:icon="@mipmap/ic_exit"></item>
     </group>
 </menu>
