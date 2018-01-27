@@ -40,6 +40,8 @@ fun find(baseCommand:String):(Array<String>)->ACPDataBuilder{
     return when(baseCommand){
         ACP.CMD_GETICON-> {args-> getIcon(args)}
         ACP.CMD_GETPKGINFO->{args-> getPkgInfo(args)}
+        ACP.CMD_GETPKGS->{ args->getPkgs(args)}
+        ACP.CMD_TEST->{args-> test(args) }
         else -> throw CommandNotFoundException()
     }
 }

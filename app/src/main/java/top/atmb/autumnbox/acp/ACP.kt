@@ -29,7 +29,8 @@ byte[1-?] 具体的数据
 class ACP{
     companion object {
         val STD_PORT  = 24020
-        val VERSION = 0.8
+        val VERSION = 0.9
+        val CMD_GETPKGS = "getpkgs"
         val CMD_GETICON = "geticon"
         val CMD_GETPKGINFO = "getpkginfo"
         val CMD_TEST = "test"

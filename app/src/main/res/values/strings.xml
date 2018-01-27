@@ -14,7 +14,7 @@
     <string name="toast_already_copy">已复制</string>
     <string name="action_settings">Settings</string>
     <string name="main_thanks">感谢您选择AutumnBox</string>
-    <string name="main_desc">基于ACP 0.8的请求处理服务</string>
+    <string name="main_desc">基于ACP 0.9的请求处理服务</string>
     <string name="state_server_loading">加载中</string>
     <string name="state_server_running">运行中</string>
     <string name="state_server_ex">未运行</string>
