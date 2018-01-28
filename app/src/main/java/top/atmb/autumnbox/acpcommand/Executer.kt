@@ -32,6 +32,7 @@ fun execute(command:String):ACPDataBuilder{
         val message = ex.toString() + ex.message
         result.data = message.toByteArray()
     }
+    Log.d(TAG,"response data size->" + result.dataSize)
     return result
 }
 
