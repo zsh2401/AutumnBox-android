@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "113487428834",
+    "project_id": "autumnbox-mobile"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113487428834:android:1fbe97b74b6cb4ea",
+        "android_client_info": {
+          "package_name": "top.atmb.autumnbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113487428834-5o21ketjlv8lvksi4vc28un2bgn9jrmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIvGHHZpiBpM-5hB-6L7bAkGodKb8hOT4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-113227184-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

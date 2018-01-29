@@ -29,16 +29,18 @@ byte[1-?] 具体的数据
 class ACP{
     companion object {
         val STD_PORT  = 24020
-        val VERSION = 0.9
+        val VERSION = 2.0
         val CMD_GETPKGS = "getpkgs"
         val CMD_GETICON = "geticon"
         val CMD_GETPKGINFO = "getpkginfo"
         val CMD_TEST = "test"
+        val CMD_EXIT = "exit";
         val FCODE_SUCCESS:Byte = 0
         val FCODE_UNKNOW_ERR:Byte = 1
         val FCODE_ERR_WITH_EX:Byte =2
         val FCODE_PKG_NOT_FOUND:Byte = 3
         val FCODE_UNKNOWN_COMMAND:Byte = 4
+        val FCODE_EXIT = 7
         fun printLog(tag:String,message:String){
             Log.d(tag,message)
         }

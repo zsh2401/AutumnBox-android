@@ -41,12 +41,13 @@
             android:text="@string/main_thanks" />
 
         <TextView
+            android:id="@+id/text_desc__"
             android:layout_marginTop="25dp"
             android:textSize="20dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/main_desc"
+            android:text=""
             />
         <TextView
             android:id="@+id/text_serverstate"

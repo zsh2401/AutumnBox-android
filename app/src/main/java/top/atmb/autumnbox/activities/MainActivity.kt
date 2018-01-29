@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import top.atmb.autumnbox.ACPService
 import top.atmb.autumnbox.R
+import top.atmb.autumnbox.acp.ACP
 import top.atmb.autumnbox.util.getVersionName
 import top.atmb.autumnbox.util.gotoAlipay
 import top.atmb.autumnbox.util.openAlipay
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        var t = findViewById<TextView>(R.id.text_desc__)
+        t.text = String.format(resources.getString(R.string.main_desc_format),ACP.VERSION)
         mServerStateText = findViewById(R.id.text_serverstate)
         mDrawerLayout = findViewById(R.id.drawer_layout)
         mServerStateText.text = if(ACPService.isRunning)

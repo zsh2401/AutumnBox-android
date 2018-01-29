@@ -47,7 +47,8 @@ class ACPService : Service() {
         try{
             while(true){
                 var client = serverSocket.accept()
-                Thread({acpFlow(client)}).start()
+                Log.d(TAG,"a client connected...")
+                Thread(AcpServer(client)).start()
             }
         }catch (ex:Exception){
             ex.printStackTrace()
@@ -59,13 +60,13 @@ class ACPService : Service() {
     }
     fun acpFlow(client:Socket){
         Log.d(TAG,"a client connect")
+        var lastCommand = "";
         try{
             var reader = DataInputStream(client.getInputStream())
             var writer = DataOutputStream(client.getOutputStream())
 
             var requestBuffer = ByteArray(1024)
             var size = reader.read(requestBuffer)
-
             var commandReceivedIntent = Intent(BC_COMMAND_RECEIVED)
             commandReceivedIntent.putExtra("command",String(requestBuffer,0,size))
             localBroadcastManager.sendBroadcast(commandReceivedIntent)
