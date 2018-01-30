@@ -6,7 +6,8 @@
 
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -25,9 +26,26 @@
         </activity>
 
         <service
-            android:name=".ACPService"
+            android:name=".service.ACPService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <receiver
+            android:name=".service.CommandStartAcpServiceReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="top.atmb.autumnbox.COMMAND_START_ACP_SERVICE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".service.CommandStopAcpServiceReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="top.atmb.autumnbox.COMMAND_STOP_ACP_SERVICE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

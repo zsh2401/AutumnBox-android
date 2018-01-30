@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AutumnBox-Mobile</string>
+    <string name="app_name">AutumnBox</string>
     <string name="title_activity_main">Thanks for choice AutumnBox</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

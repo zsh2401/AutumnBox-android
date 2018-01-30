@@ -1,20 +1,21 @@
 package top.atmb.autumnbox.activities
 
-import android.annotation.SuppressLint
-import android.app.ActivityManager
 import android.app.AlertDialog
-import android.content.*
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.support.v7.widget.SwitchCompat
 import android.widget.TextView
 import android.widget.Toast
-import top.atmb.autumnbox.ACPService
+import top.atmb.autumnbox.service.ACPService
+import top.atmb.autumnbox.service.ACPServiceBroadcastReceiver
 import top.atmb.autumnbox.R
 import top.atmb.autumnbox.acp.ACP
 import top.atmb.autumnbox.util.getVersionName
@@ -31,47 +32,81 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
     }
     private lateinit var mServerStateText:TextView
     private lateinit var mDrawerLayout:DrawerLayout
-    private lateinit var receiver:ACPServiceBroadcastReceiver
+    private lateinit var receiver: ACPServiceBroadcastReceiver
+    private lateinit var mSwitch:SwitchCompat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var t = findViewById<TextView>(R.id.text_desc__)
-        t.text = String.format(resources.getString(R.string.main_desc_format),ACP.VERSION)
-        mServerStateText = findViewById(R.id.text_serverstate)
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-        mServerStateText.text = if(ACPService.isRunning)
-            resources.getString(R.string.state_server_running)
-            else resources.getString(R.string.state_server_loading)
-
-        mServerStateText.setTextColor(resources.getColor(R.color.colorServerRunning))
-        receiver = ACPServiceBroadcastReceiver(this)
-        receiver.serverStarted = {
-            runOnUiThread({
-                Log.d(TAG,"server started")
-                mServerStateText.setTextColor(resources.getColor(R.color.colorServerRunning))
-                mServerStateText.text = resources.getString(R.string.state_server_running)
-            })
-        }
-        receiver.serverStopped = {
-            runOnUiThread({
-                mServerStateText.setTextColor(resources.getColor(R.color.colorServerStopped))
-                mServerStateText.text = resources.getString(R.string.state_server_ex)
-            })
-        }
-        receiver.register()
-
-        if(!ACPService.isRunning){
-            startService(Intent(this,ACPService::class.java))
-        }
-
-        bindDrawerClickEvent()
+        initCtrlObj()
+        initStateText()
+        initBroadcastReceiver()
+        initDrawerClickEvent()
+        initText()
+        processBundle(savedInstanceState)
     }
 
     override fun onDestroy() {
         receiver.unregister()
         super.onDestroy()
     }
-    private fun bindDrawerClickEvent(){
+
+    private fun processBundle(bundle: Bundle?){
+        if(bundle == null)return
+        try{
+            var startService = bundle.getBoolean("startService")
+            if(startService){
+                ACPService.start()
+            }
+        }catch (ex:Exception){
+            ex.printStackTrace()
+        }
+    }
+    /*Init functions*/
+    private fun initCtrlObj(){
+        mServerStateText = findViewById(R.id.text_serverstate)
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+        mSwitch = findViewById(R.id.swc_service)
+        mSwitch.setOnCheckedChangeListener({view,isChecked->
+            if(isChecked){
+                ACPService.start()
+            }else{
+                ACPService.stop()
+            }
+        })
+    }
+    private fun initStateText(){
+        setStateCtrls(ACPService.isRunning)
+    }
+    private fun setStateCtrls(state:Boolean){
+        mServerStateText.text = if(state)
+            resources.getString(R.string.state_server_running)
+        else resources.getString(R.string.state_server_ex)
+        mServerStateText.setTextColor(if(state)
+            resources.getColor(R.color.colorServerRunning)
+        else resources.getColor(R.color.colorServerStopped))
+
+        mSwitch.isChecked = state
+    }
+    private fun initBroadcastReceiver(){
+        receiver = ACPServiceBroadcastReceiver(this)
+        receiver.serverStarted = {
+            runOnUiThread({
+                Log.d(TAG,"server started")
+                setStateCtrls(ACPService.isRunning)
+            })
+        }
+        receiver.serverStopped = {
+            runOnUiThread({
+                setStateCtrls(ACPService.isRunning)
+            })
+        }
+        receiver.register()
+    }
+    private fun initText(){
+        var t = findViewById<TextView>(R.id.text_desc__)
+        t.text = String.format(resources.getString(R.string.main_desc_format),ACP.VERSION)
+    }
+    private fun initDrawerClickEvent(){
         findViewById<NavigationView>(R.id.nav_view).setNavigationItemSelectedListener({item->
             when(item.itemId){
                 R.id.nav_officialWebsite->{
@@ -129,53 +164,12 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
                 })
                 dialog.show()
             }R.id.nav_exit->{
-                stopService(Intent(this,ACPService::class.java))
+                stopService(Intent(this, ACPService::class.java))
                 finish()
             }
             }
             mDrawerLayout.closeDrawers()
             true
         })
-    }
-    private class ACPServiceBroadcastReceiver(context:Context) : BroadcastReceiver(){
-        companion object {
-            val TAG = "ACPSBReceiver"
-        }
-        private var localBroadcastManager:LocalBroadcastManager = LocalBroadcastManager.getInstance(context)
-        private var intentFilter:IntentFilter = IntentFilter()
-        init {
-            intentFilter.addAction(ACPService.BC_ACP_SERVER_ERROR)
-            intentFilter.addAction(ACPService.BC_COMMAND_PROCESSED)
-            intentFilter.addAction(ACPService.BC_COMMAND_RECEIVED)
-            intentFilter.addAction(ACPService.BC_ACP_SERVER_STARTED)
-            intentFilter.addAction(ACPService.BC_ACP_SERVER_STOPPED)
-        }
-        var commandReceived:((String)->Unit)? = null
-        var commandProcessed:((Int)->Unit)? = null
-        var serverCrashed:((Exception)->Unit)?=null
-        var serverStarted:(()->Unit)? = null
-        var serverStopped:(()->Unit)?=null
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            Log.d(TAG,"received broadcast->" + p1!!.action)
-            when(p1!!.action){
-                ACPService.BC_ACP_SERVER_STARTED->{serverStarted?.invoke() }
-                ACPService.BC_COMMAND_RECEIVED->{
-                    commandReceived?.invoke(p1!!.getStringExtra("command"))}
-                ACPService.BC_COMMAND_PROCESSED->{
-                    commandProcessed?.invoke(p1.getIntExtra("fcode",-1))}
-                ACPService.BC_ACP_SERVER_ERROR->{
-                    serverCrashed?.invoke(p1.extras["exception"] as Exception)
-                }
-                ACPService.BC_ACP_SERVER_STOPPED->{
-                    serverStopped?.invoke()
-                }
-            }
-        }
-        fun register(){
-            localBroadcastManager.registerReceiver(this,intentFilter)
-        }
-        fun unregister(){
-            localBroadcastManager.unregisterReceiver(this)
-        }
     }
 }
