@@ -12,26 +12,26 @@ import top.atmb.autumnbox.acp.ACP
 import java.net.ServerSocket
 class ACPService : Service() {
     companion object {
-        fun start(force:Boolean=false):Boolean{
-            try{
-                if(!isRunning || force){
+        fun start(force: Boolean = false): Boolean {
+            try {
+                if (!isRunning || force) {
                     App.context.startService(Intent(App.context, ACPService::class.java))
                 }
                 return true
-            }catch (ex:Exception){
+            } catch (ex: Exception) {
                 ex.printStackTrace()
                 return false
             }
         }
-        fun stop(){
-            try{
-                if(isRunning){
-                    App.context.stopService(Intent(App.context, ACPService::class.java))
-                }
-            }catch (ex:Exception){
+
+        fun stop() {
+            try {
+                App.context.stopService(Intent(App.context, ACPService::class.java))
+            } catch (ex: Exception) {
                 ex.printStackTrace()
             }
         }
+
         private fun isServiceRun(mContext: Context, className: String): Boolean {
             var isRun = false
             val activityManager = mContext
@@ -47,52 +47,67 @@ class ACPService : Service() {
             }
             return isRun
         }
-        val isRunning:Boolean get(){
-            return isServiceRun(App.context, "top.atmb.autumnbox.service.ACPService")
-        }
+
+        val isRunning: Boolean
+            get() {
+                return isServiceRun(App.context, "top.atmb.autumnbox.service.ACPService")
+            }
         val TAG = "ACPService"
-        val BC_ACP_SERVER_ERROR= "top.atmb.autumnbox.ACP_SERVER_ERROR"
+        val BC_ACP_SERVER_ERROR = "top.atmb.autumnbox.ACP_SERVER_ERROR"
         val BC_ACP_SERVER_STARTED = "top.atmb.autumnbox.ACP_SERVER_STARTED"
         val BC_ACP_SERVER_STOPPED = "top.atmb.autumnbox.ACP_SERVER_STOPPED"
         val BC_COMMAND_RECEIVED = "top.atmb.autumnbox.COMMAND_RECEIVED"
         val BC_COMMAND_PROCESSED = "top.atmb.autumnbox.BC_COMMAND_PROCESSED"
     }
-    private lateinit var localBroadcastManager:LocalBroadcastManager
+
+    private lateinit var localBroadcastManager: LocalBroadcastManager
     private lateinit var serverSocket: ServerSocket
     override fun onCreate() {
+        Log.i(TAG,"Creating")
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        serverSocket = ServerSocket(ACP.STD_PORT)
+        localBroadcastManager.sendBroadcast(Intent(BC_ACP_SERVER_STARTED))
         super.onCreate()
     }
+
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        serverSocket = ServerSocket(ACP.STD_PORT)
-        localBroadcastManager.sendBroadcast(Intent(BC_ACP_SERVER_STARTED))
-        Thread({listen()}).start()
+        Log.d(TAG,"onStartCommand()")
+        if(!isListening){
+            Thread({ listen() }).start()
+        }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun listen(){
-        try{
-            while(true){
+    private var isListening = false
+    private fun listen() {
+        isListening = true
+        try {
+            while (true) {
                 var client = serverSocket.accept()
-                Log.d(TAG,"a client connected...")
-                Thread(AcpServer(client)).start()
+                Log.i(TAG, "a client connected...")
+                AcpServer(serverSocket,client).runAsync()
             }
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
-            stopSelf()
-            var errorBroadcastIntent = Intent(BC_ACP_SERVER_ERROR)
-            errorBroadcastIntent.putExtra("exception",ex)
-            localBroadcastManager.sendBroadcast(errorBroadcastIntent)
+            if(!isDestroying){
+                stopSelf()
+                var errorBroadcastIntent = Intent(BC_ACP_SERVER_ERROR)
+                errorBroadcastIntent.putExtra("exception", ex)
+                localBroadcastManager.sendBroadcast(errorBroadcastIntent)
+            }
         }
+        isListening = false
     }
+    private var isDestroying = false
     override fun onDestroy() {
-        localBroadcastManager.sendBroadcast(Intent(BC_ACP_SERVER_STOPPED))
-        serverSocket.close()
-        Log.d(TAG,"service destory")
         super.onDestroy()
+        isDestroying = true
+        serverSocket.close()
+        localBroadcastManager.sendBroadcast(Intent(BC_ACP_SERVER_STOPPED))
+        Log.i(TAG,"Destroy!")
     }
 }

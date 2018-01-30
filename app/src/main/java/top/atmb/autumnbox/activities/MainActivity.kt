@@ -91,13 +91,17 @@ class MainActivity : AppCompatActivity(),IOpenableDrawer {
         receiver = ACPServiceBroadcastReceiver(this)
         receiver.serverStarted = {
             runOnUiThread({
-                Log.d(TAG,"server started")
-                setStateCtrls(ACPService.isRunning)
+                Log.i(TAG,"ACPService started...setStateCtrls state to true")
+                setStateCtrls(true)
             })
+        }
+        receiver.commandReceived={command->
+            Log.i(TAG,"ACPService received command: " + command)
         }
         receiver.serverStopped = {
             runOnUiThread({
-                setStateCtrls(ACPService.isRunning)
+                Log.i(TAG,"ACPService stopped...setStateCtrls state to false")
+                setStateCtrls(false)
             })
         }
         receiver.register()
