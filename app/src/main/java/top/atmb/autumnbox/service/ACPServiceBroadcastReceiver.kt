@@ -13,16 +13,16 @@ import android.util.Log
 class ACPServiceBroadcastReceiver(context: Context) : BroadcastReceiver(){
     companion object {
         val TAG = "ACPSBReceiver"
+        private var intentFilter: IntentFilter = IntentFilter()
+        init {
+            intentFilter.addAction(ACPService.BC_ACP_SERVER_ERROR)
+            intentFilter.addAction(ACPService.BC_COMMAND_PROCESSED)
+            intentFilter.addAction(ACPService.BC_COMMAND_RECEIVED)
+            intentFilter.addAction(ACPService.BC_ACP_SERVER_STARTED)
+            intentFilter.addAction(ACPService.BC_ACP_SERVER_STOPPED)
+        }
     }
     private var localBroadcastManager: LocalBroadcastManager = LocalBroadcastManager.getInstance(context)
-    private var intentFilter: IntentFilter = IntentFilter()
-    init {
-        intentFilter.addAction(ACPService.BC_ACP_SERVER_ERROR)
-        intentFilter.addAction(ACPService.BC_COMMAND_PROCESSED)
-        intentFilter.addAction(ACPService.BC_COMMAND_RECEIVED)
-        intentFilter.addAction(ACPService.BC_ACP_SERVER_STARTED)
-        intentFilter.addAction(ACPService.BC_ACP_SERVER_STOPPED)
-    }
     var commandReceived:((String)->Unit)? = null
     var commandProcessed:((Int)->Unit)? = null
     var serverCrashed:((Exception)->Unit)?=null

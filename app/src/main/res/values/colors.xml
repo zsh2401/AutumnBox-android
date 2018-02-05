@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorBasic">#0076FF</color>
+    <color name="colorPrimary">@color/colorBasic</color>
+    <color name="colorPrimaryDark">@color/colorBasic</color>
+    <color name="colorAccent">#0fcafe</color>
+
+    <color name="colorFore">#666666</color>
+    <color name="colorBg">#fefefe</color>
+    <color name="colorLight">#fefefe</color>
+    <color name="colorBtmBg">@color/colorBg</color>
+    <color name="colorBtmText">@color/colorFore</color>
+    <color name="colorBtmIconChecked">@color/colorPrimary</color>
+    <color name="colorBtmIconUnchecked">#9e9e9e</color>
+
+
     <color name="colorServerRunning">#FF00EECC</color>
     <color name="colorServerStopped">#FFEE2500</color>
     <color name="colorTitleBar">#222222</color>

@@ -34,7 +34,7 @@ class ACP{
         val CMD_GETICON = "geticon"
         val CMD_GETPKGINFO = "getpkginfo"
         val CMD_TEST = "test"
-        val CMD_EXIT = "exit";
+        val CMD_EXIT = "exit"
         val FCODE_SUCCESS:Byte = 0
         val FCODE_UNKNOW_ERR:Byte = 1
         val FCODE_ERR_WITH_EX:Byte =2

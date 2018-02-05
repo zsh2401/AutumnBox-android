@@ -73,18 +73,17 @@ class ACPService : Service() {
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")
     }
-
+    var listeningThread:Thread?=null
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG,"onStartCommand()")
-        if(!isListening){
-            Thread({ listen() }).start()
+        if(listeningThread?.isAlive != true){
+            listeningThread = Thread({listen()})
+            listeningThread!!.start()
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private var isListening = false
     private fun listen() {
-        isListening = true
         try {
             while (true) {
                 var client = serverSocket.accept()
@@ -100,7 +99,6 @@ class ACPService : Service() {
                 localBroadcastManager.sendBroadcast(errorBroadcastIntent)
             }
         }
-        isListening = false
     }
     private var isDestroying = false
     override fun onDestroy() {

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.util.Log
 import top.atmb.autumnbox.App
 import top.atmb.autumnbox.acp.ACP
-import top.atmb.autumnbox.acpcommand.execute
+import top.atmb.autumnbox.acp.acpcommand.execute
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.net.ServerSocket
@@ -18,11 +18,12 @@ class AcpServer(private var server: ServerSocket,private var client: Socket):Run
     private var writer = DataOutputStream(client.getOutputStream())
     companion object {
         val TAG = "AcpServer"
+        val serverAliveCheckInterval = 2000L
     }
     init {
         Thread({
             while(true){
-                Thread.sleep(1000)
+                Thread.sleep(serverAliveCheckInterval)
                 if(server.isClosed){
                     client.close()
                 }
@@ -42,7 +43,9 @@ class AcpServer(private var server: ServerSocket,private var client: Socket):Run
                 App.localBroadcastManager.sendBroadcast(
                         Intent(ACPService.BC_COMMAND_RECEIVED)
                                 .putExtra("command",command))
-                if(command == ACP.CMD_EXIT)break
+                if(command == ACP.CMD_EXIT){
+                    writer.write(0)
+                    break}
                 Log.d(TAG,"executing command..")
                 var exeResult = execute(command)
                 Log.d(TAG,String.format("executed..fCode: %d dataSize: %d",exeResult.fCode,exeResult.dataSize))

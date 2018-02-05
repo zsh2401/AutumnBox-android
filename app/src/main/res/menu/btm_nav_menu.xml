@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/btm_nav_btn_acp"
+        android:id="@+id/item_btm_acp"
+        android:icon="@mipmap/ic_acp"></item>
+
+    <item android:title="@string/btm_nav_toolbox"
+        android:id="@+id/item_btm_toolbox"
+        android:icon="@mipmap/ic_toolbox"></item>
+</menu>

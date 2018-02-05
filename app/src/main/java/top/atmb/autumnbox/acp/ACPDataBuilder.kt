@@ -6,7 +6,6 @@ import java.util.*
  * Created by zsh24 on 01/22/2018.
  */
 data class ACPDataBuilder(var fCode:Byte = 1,var data:ByteArray = ByteArray(0)){
-
     val totalSize:Int get() { return data.size + 1 }
     val dataSize:Int get() {return data.size}
 

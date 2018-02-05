@@ -16,9 +16,14 @@ class App: Application() {
         val context: Context
         get() = _context
         private lateinit var _context:Context
+
+        val current:App
+        get()=_app
+        private lateinit var _app:App
     }
     override fun onCreate() {
         super.onCreate()
+        _app = this
         _localBroadcastManager = LocalBroadcastManager.getInstance(this)
         _context = this.applicationContext
     }

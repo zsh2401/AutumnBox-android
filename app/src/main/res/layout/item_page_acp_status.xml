@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorBasic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_acp_status_desc"
+        app:layout_marginTopPercent="30%"
+        android:gravity="center"
+        android:textColor="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/main_desc_format"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/text_service_state"
+        android:textColor="@color/colorBg"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="@string/state_server_ex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_acp_status_desc" />
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch_service_state"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_service_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</android.support.percent.PercentRelativeLayout>

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="top.atmb.autumnbox.ux.activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +46,8 @@
                 <action android:name="top.atmb.autumnbox.COMMAND_STOP_ACP_SERVICE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name="top.atmb.autumnbox.ux.activities.MainActivityMD"></activity>
     </application>
 
 </manifest>

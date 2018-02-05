@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AutumnBox</string>
+    <string name="title_activity_main">Thanks for choice AutumnBox</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="msg_have_no_installl_alipay">您未安装支付宝客户端,请手动向zsh2401@163.com转账..</string>
+    <string name="btn_cancel">取消</string>
+    <string name="autumnbox_android">Android版(Kotlin)</string>
+    <string name="autumnbox_pc">PC版(C#)</string>
+    <string name="title_pls_select_repo">请选择项目</string>
+    <string name="toast_already_copy">已复制</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_thanks">感谢您选择AutumnBox</string>
+    <string name="main_desc_format">基于ACP%.1f的请求处理服务</string>
+    <string name="state_server_loading">加载中</string>
+    <string name="state_server_running">运行中</string>
+    <string name="state_server_ex">未运行</string>
+    <string name="nav_donate">捐赠</string>
+    <string name="nav_about">关于</string>
+    <string name="nav_official">AutumnBox官网</string>
+    <string name="nav_os">开源</string>
+    <string name="nav_exit">彻底退出</string>
+    <string name="title_about">关于AutumnBox-Mobile</string>
+    <string name="msg_about">为拓展AutumnBox而生</string>
+    <string name="btn_ok">OK</string>
+    <string name="title_donate">捐赠开发者</string>
+    <string name="msg_donate">共同营造更加良好的安卓应用生态</string>
+    <string name="btn_donate_cpwechat">复制微信账号</string>
+    <string name="btn_donate_cpalipay_code">复制支付宝红包口令</string>
+    <string name="btn_donate_goto_alipaytransfer">支付宝转账</string>
+    <string name="btm_nav_btn_acp">ACP</string>
+    <string name="btm_nav_toolbox">工具箱</string>
+    <string name="tab_acp_status">Acp状态</string>
+    <string name="tab_acp_info">关于acp</string>
+    <string name="info_acp">  ACP的主要作用在于为AutumnBox PC端提供功能拓展与辅助,增强AutumnBox PC端对安卓手机的控制</string>
+</resources>

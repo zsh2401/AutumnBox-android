@@ -6,67 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context="top.atmb.autumnbox.activities.MainActivity"
+    android:fitsSystemWindows="true"
+    tools:context=".ux.activities.MainActivity"
     android:background="@color/colorMainBg">
 
 
     <LinearLayout
-        android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <top.atmb.autumnbox.ctrl.TitleBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </top.atmb.autumnbox.ctrl.TitleBarLayout>
+        <include layout="@layout/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        </include>
 
-        <android.support.percent.PercentFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img_main"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/title_icon"
-                app:layout_heightPercent="50%"
-                app:layout_widthPercent="70%" />
-        </android.support.percent.PercentFrameLayout>
-        <TextView
-            android:layout_marginTop="25dp"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="@string/main_thanks" />
-
-        <TextView
-            android:id="@+id/text_desc__"
-            android:layout_marginTop="25dp"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/main_desc_format"
-            />
-        <TextView
-            android:id="@+id/text_serverstate"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#ff0000"
-            android:text="@string/state_server_ex"
-            />
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/swc_service"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
+        <android.support.v4.view.ViewPager
+            android:background="@color/colorBg"
+            android:id="@+id/main_view_pager"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_weight="1"
+            android:layout_height="0dp">
+        </android.support.v4.view.ViewPager>
 
+        <android.support.design.widget.BottomNavigationView
+            android:theme="@style/AppTheme.PopupOverlay"
+            android:background="@color/colorBtmBg"
+            android:id="@+id/btm_nav_view"
+            app:itemTextColor="@color/colorBtmText"
+            app:itemIconTint="@drawable/btm_nav_color"
+            app:menu="@menu/btm_nav_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -74,6 +46,9 @@
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
+        android:background="@color/colorBg"
+        app:itemIconTint="@color/colorFore"
+        app:itemTextColor="@color/colorFore"
         app:headerLayout="@layout/nav_header"
         ></android.support.design.widget.NavigationView>
 
