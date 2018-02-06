@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AutumnBox</string>
+    <string name="app_name">秋之盒</string>
     <string name="title_activity_main">Thanks for choice AutumnBox</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -37,4 +37,6 @@
     <string name="tab_acp_status">Acp状态</string>
     <string name="tab_acp_info">关于acp</string>
     <string name="info_acp">  ACP的主要作用在于为AutumnBox PC端提供功能拓展与辅助,增强AutumnBox PC端对安卓手机的控制</string>
+    <string name="tab_toolbox_root">Root</string>
+    <string name="tab_toolbox_noroot">常规</string>
 </resources>

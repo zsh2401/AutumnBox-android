@@ -36,4 +36,6 @@
     <string name="tab_acp_status">Acp status</string>
     <string name="tab_acp_info">What is acp?</string>
     <string name="info_acp">  Born to expand AutumnBox PC...</string>
+    <string name="tab_toolbox_root">Root</string>
+    <string name="tab_toolbox_noroot">No Root</string>
 </resources>

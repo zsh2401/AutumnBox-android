@@ -2,7 +2,7 @@
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/colorBasic"
+    android:background="@color/colorBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +10,7 @@
         android:id="@+id/text_acp_status_desc"
         app:layout_marginTopPercent="30%"
         android:gravity="center"
-        android:textColor="@color/colorBg"
+        android:textColor="@color/colorFore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -18,7 +18,7 @@
     <TextView
         android:layout_marginTop="20dp"
         android:id="@+id/text_service_state"
-        android:textColor="@color/colorBg"
+        android:textColor="@color/colorFore"
         android:gravity="center"
         android:textSize="20dp"
         android:text="@string/state_server_ex"
