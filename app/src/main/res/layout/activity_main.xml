@@ -22,7 +22,6 @@
             android:layout_height="wrap_content">
         </include>
 
-
         <android.support.design.widget.BottomNavigationView
             android:theme="@style/AppTheme.PopupOverlay"
             android:background="@color/colorBtmBg"

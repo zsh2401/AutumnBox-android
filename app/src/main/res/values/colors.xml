@@ -6,9 +6,10 @@
     <color name="colorAccent">#0fcafe</color>
 
     <color name="colorFore">#666666</color>
-    <color name="colorBg">#fefefe</color>
+    <color name="colorBg">#EAEAEA</color>
+    <color name="colorBgLight">#fefefe</color>
     <color name="colorLight">#fefefe</color>
-    <color name="colorBtmBg">@color/colorBg</color>
+    <color name="colorBtmBg">@color/colorBgLight</color>
     <color name="colorBtmText">@color/colorFore</color>
     <color name="colorBtmIconChecked">@color/colorPrimary</color>
     <color name="colorBtmIconUnchecked">#9e9e9e</color>

@@ -10,16 +10,22 @@ import android.widget.TextView
 import top.atmb.autumnbox.acp.ACP
 import top.atmb.autumnbox.R
 import top.atmb.autumnbox.service.*
+import top.atmb.autumnbox.ux.activities.IMainActivityApi
 import top.atmb.autumnbox.ux.adapter.UniversalPageAdapter
 /**
  * Created by zsh24 on 02/06/2018.
  */
-class AcpPage(context:Context):LinearLayout(context) {
+class AcpPage(context:Context,private val activityApi:IMainActivityApi):LinearLayout(context),IScrollSettingGetable {
+    override fun canScroll(): Boolean {
+        return false
+    }
+
     private val layoutInflater:LayoutInflater = LayoutInflater.from(context)
     init {
         layoutInflater.inflate(R.layout.item_page_acp,this)
         initTab()
     }
+
     private fun initTab(){
         val pageAcp = this
         val pageAcpTab = pageAcp.findViewById<TabLayout>(R.id.page_acp_tab)
@@ -36,7 +42,13 @@ class AcpPage(context:Context):LinearLayout(context) {
         val adapter = UniversalPageAdapter(views, titles)
         pageAcpInner.adapter =adapter
         pageAcpTab.setupWithViewPager(pageAcpInner)
-
+        pageAcpInner.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) {
+//                activityApi.setExpandedAppBar(true,false)
+            }
+        })
         //init acp status page views
         pageAcpStatus.findViewById<TextView>(R.id.text_acp_status_desc).text =
                 String.format(resources.getString(R.string.main_desc_format), ACP.VERSION)

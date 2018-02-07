@@ -10,10 +10,12 @@ import android.view.View
 import android.view.ViewParent
 import android.widget.LinearLayout
 import top.atmb.autumnbox.R
+import top.atmb.autumnbox.ux.activities.IMainActivityApi
+
 /**
  * Created by zsh24 on 02/06/2018.
  */
-class ToolBoxPage(context:Context):LinearLayout(context) {
+class ToolBoxPage(context:Context,private val activityApi: IMainActivityApi):LinearLayout(context) {
     private lateinit var mViewPager: ViewPager
     private lateinit var mTab:TabLayout
     private lateinit var views:Array<View>

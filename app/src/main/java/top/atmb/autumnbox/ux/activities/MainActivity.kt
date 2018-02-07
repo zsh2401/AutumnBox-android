@@ -1,7 +1,9 @@
 package top.atmb.autumnbox.ux.activities
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
@@ -13,7 +15,11 @@ import top.atmb.autumnbox.ux.adapter.UniversalPageAdapter
 import top.atmb.autumnbox.ux.controls.AcpPage
 import top.atmb.autumnbox.ux.controls.ToolBoxPage
 
-class MainActivity : BaseActivity(), IDrawerControllable {
+class MainActivity : BaseActivity(), IMainActivityApi {
+
+    override fun setExpandedAppBar(expanded: Boolean, animate: Boolean) {
+        mAppBar.setExpanded(expanded,animate)
+    }
     override fun openDrawer() {
         mDrawerLayout.openDrawer(GravityCompat.START)
     }
@@ -25,6 +31,7 @@ class MainActivity : BaseActivity(), IDrawerControllable {
     companion object {
         val TAG:String = "MainActivity"
     }
+    private lateinit var mAppBar:AppBarLayout
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mToolBar: android.support.v7.widget.Toolbar
     private lateinit var mBtmNavView: BottomNavigationView
@@ -32,7 +39,6 @@ class MainActivity : BaseActivity(), IDrawerControllable {
     private lateinit var mViewList:Array<View>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG,"cearting")
         setContentView(R.layout.activity_main)
         init()
     }
@@ -48,6 +54,7 @@ class MainActivity : BaseActivity(), IDrawerControllable {
         mBtmNavView = findViewById(R.id.btm_nav_view)
         mToolBar = findViewById(R.id.tool_bar)
         mViewPager = findViewById(R.id.main_view_pager)
+        mAppBar = findViewById(R.id.app_bar)
     }
     private fun initToolBar(){
         setSupportActionBar(mToolBar)
@@ -59,23 +66,24 @@ class MainActivity : BaseActivity(), IDrawerControllable {
     }
     private fun initViewPager(){
         mViewList = arrayOf(
-                AcpPage(this),
-                ToolBoxPage(this)
+                AcpPage(this,this),
+                ToolBoxPage(this,this)
         )
         mViewPager.adapter = UniversalPageAdapter(mViewList)
     }
 
     private fun initBtmNavEvent(){
-
         mBtmNavView.setOnNavigationItemSelectedListener { item->
             when(item.itemId){
                 R.id.item_btm_acp->{
-                    mViewPager.currentItem = 0;true}
+                    mViewPager.currentItem = 0}
                 R.id.item_btm_toolbox->{
-                    mViewPager.currentItem = 1;true}
+                    mViewPager.currentItem = 1}
                 else->false
             }
+            true
         }
+
         mViewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -84,6 +92,12 @@ class MainActivity : BaseActivity(), IDrawerControllable {
                     0->{ mBtmNavView.selectedItemId=R.id.item_btm_acp}
                     1->{mBtmNavView.selectedItemId = R.id.item_btm_toolbox}
                 }
+                Thread({
+                    Thread.sleep(200)
+                    runOnUiThread({
+                        mAppBar.setExpanded(true,true)
+                    })
+                }).start()
             }
         })
     }

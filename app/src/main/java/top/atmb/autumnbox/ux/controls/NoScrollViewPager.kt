@@ -28,10 +28,13 @@ class NoScrollViewPager(context:Context, attr:AttributeSet):ViewPager(context,at
     }
 
     override fun setCurrentItem(item: Int, smoothScroll: Boolean) {
+        //TODO
         super.setCurrentItem(item, smoothScroll)
     }
 
     override fun setCurrentItem(item: Int) {
+        //TODO
         super.setCurrentItem(item)
     }
+
 }
