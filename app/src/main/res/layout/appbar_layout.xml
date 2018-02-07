@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".ux.activities.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <top.atmb.autumnbox.ux.controls.MyAppBar
         android:fitsSystemWindows="true"
         android:id="@+id/app_bar"
         app:elevation="0dp"
@@ -23,7 +23,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:layout_width="match_parent">
         </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+    </top.atmb.autumnbox.ux.controls.MyAppBar>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_view_pager"

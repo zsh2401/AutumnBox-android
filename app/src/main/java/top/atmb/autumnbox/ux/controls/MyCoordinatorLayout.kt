@@ -40,6 +40,7 @@ class MyCoordinatorLayout(context: Context,attr:AttributeSet):CoordinatorLayout(
         切换到后最初显示的页,appbar是展开的,但滑动到旁边的时,appbar又会缩回去
         奇怪
         */
+        Log.d(TAG,"what?")
         return false
 //        return super.onNestedFling(target, velocityX, velocityY, consumed)
     }

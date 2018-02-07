@@ -74,13 +74,22 @@ class MainActivity : BaseActivity(), IMainActivityApi {
 
     private fun initBtmNavEvent(){
         mBtmNavView.setOnNavigationItemSelectedListener { item->
-            when(item.itemId){
-                R.id.item_btm_acp->{
-                    mViewPager.currentItem = 0}
-                R.id.item_btm_toolbox->{
-                    mViewPager.currentItem = 1}
-                else->false
-            }
+            Thread({
+                if(mAppBar.bottom < mAppBar.height){
+                    runOnUiThread({
+                        mAppBar.setExpanded(true,true)
+                    })
+                    Thread.sleep(300)
+                }
+                runOnUiThread({
+                    when(item.itemId){
+                        R.id.item_btm_acp->{
+                            mViewPager.currentItem = 0}
+                        R.id.item_btm_toolbox->{
+                            mViewPager.currentItem = 1}
+                    }
+                })
+            }).start()
             true
         }
 
@@ -92,12 +101,6 @@ class MainActivity : BaseActivity(), IMainActivityApi {
                     0->{ mBtmNavView.selectedItemId=R.id.item_btm_acp}
                     1->{mBtmNavView.selectedItemId = R.id.item_btm_toolbox}
                 }
-                Thread({
-                    Thread.sleep(200)
-                    runOnUiThread({
-                        mAppBar.setExpanded(true,true)
-                    })
-                }).start()
             }
         })
     }
